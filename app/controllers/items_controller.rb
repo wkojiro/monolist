@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   before_action :logged_in_user , except: [:show]
   before_action :set_item, only: [:show]
 
+#検索画面から検索された時に呼び出される
   def new
     if params[:q]
       response = Amazon::Ecs.item_search(params[:q] , 

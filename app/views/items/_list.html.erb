@@ -1,3 +1,5 @@
+listパーシャル
+
 <div class="container">
   <div class="container-inner inner-default clearfix">
     <% items.each do |item| %>
@@ -13,9 +15,9 @@
         </div>
         <div class="detail">
           <p class="title">
-            <%= item.title %>
+          タイトル：<%= item.title %>
           </p>
-        </div>
+        </div>ここにで読み込んでる。render 'items/action'
         <%= render 'items/action' , item: item if logged_in? %>
       </div>
     <% end %>

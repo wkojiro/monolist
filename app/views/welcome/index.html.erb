@@ -2,6 +2,9 @@
   <div class="cover-inner">
     <div class="cover-contents">
       <h1>素敵なモノと出会う場所</h1>
+      <% if current_user == @user %>
+      <%= @user.inspect %>
+      <% end %>
       <%= link_to 'モノリストを始める' , login_path, class: "btn btn-success btn-lg" %>
     </div>
   </div>
