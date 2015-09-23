@@ -10,7 +10,7 @@ Amazon::Ecs.options = {
 
   def create
     if params[:asin]
-      @item = Item.find_or_initialize_by(asin: params[:asin])
+      @item = Item.find_or_create_by(asin: params[:asin])
     else
       @item = Item.find(params[:item_id])
     end
