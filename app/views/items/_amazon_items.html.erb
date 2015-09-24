@@ -1,4 +1,6 @@
-あいうえお
+
+<%= amazon_items.count %>
+
 <div class="container">
   <div class="container-inner inner-default clearfix">
     <% amazon_items.each do |item| %>
@@ -14,7 +16,7 @@
           </div>
         </div>
         <div class="detail">
-          <p class="title">
+          <p class="title"><%= item.get('ASIN') %>
           <%= item.get('ItemAttributes/Title') %>
           </p>
         </div>

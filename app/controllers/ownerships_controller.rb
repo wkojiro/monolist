@@ -9,14 +9,16 @@ Amazon::Ecs.options = {
 }
 
   def create
+##このメソッドはWant/Haveの時に呼ばれる。
+##このメソッドはASINがパラメータにのっていれば、そのパラメータでItemを探しなければ作る
+
     if params[:asin]
-      @item = Item.find_or_initialize_by(asin: params[:asin])
+      @item = Item.find_or_create_by(asin: params[:asin])
     else
       @item = Item.find(params[:item_id])
     end
-    # itemsテーブルに存在しない場合はAmazonのデータを登録する。
-
-    if @item.new_record?
+    
+    if @item.new_record?  #新しいレコードかどうかチェックする
       begin
         # TODO 商品情報の取得 Amazon::Ecs.item_lookupを用いてください
         response =  Amazon::Ecs.item_lookup(ARGV[0], { :response_group => 'Medium' })
@@ -36,7 +38,6 @@ Amazon::Ecs.options = {
     puts("#{ARGV[0]}: products not found")
     end
      
-
     if params[:type] == "Have"
      current_user.have(@item)
     elsif params[:type] == "Want"
