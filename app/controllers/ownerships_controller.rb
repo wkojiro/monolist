@@ -35,6 +35,7 @@ Amazon::Ecs.options = {
       @item.raw_info        = amazon_item.get_hash
       @item.save!
       else
+        
     puts("#{ARGV[0]}: products not found")
     end
      
