@@ -1,37 +1,55 @@
-詳細画面？show.html
+<% content_for :head do %>
+<title><%= @item.title %></title>
+<meta name="description" content="<%= @item.description %>,<%= @item.title %>">
+<meta name="keywords" content="Monolist,<%= @item.title %>,<%= @item.id %>,<%= @item.asin %>">
+<% end %>
 
 <div class="container">
   <div class="container-inner inner-sm clearfix">
     <div class="item-single-main">
       <div class="image">
         <div class="img-wrap">
-          <% #TODO 商品イメージ %>
+          <% if @item.large_image != nil %>
+          <%= image_tag(@item.large_image, alt: @item.title) %>
+          <% else %>
           <%= image_tag("no-image.png" , alt: @item.title) %>
+          <% end %>
         </div>
       </div>
       <div class="title">
-        <% #TODO 商品タイトル %>
+        <%= @item.title %>
         仮タイトル
       </div>
       <%= render 'action' , item: @item %>
     </div>
     <div class="item-single-side">
-      <div class="side-box">
-        <h4 class="side-box-title">Haveしたユーザー</h4>
+      <div class="side-box">          
+        <%  @husers = Have.where(item_id: @item.id) %>
+        <h4 class="side-box-title">Haveしたユーザー(<%= @husers.count %>) </h4>
         <div class="side-box-body">
           <% # TODO Haveしたユーザー一覧 %>
-
+          <% #@have_users = Ownerships.where(item_id:@item.id) %>
+          <% @have_users= Have.where('type = ? and item_id = ?',"Have" , @item.id) %>
+          <% @have_users.each do |have_users| %>
+          <% @huser = User.find(have_users.user_id) %> 
+          <a href="/users/<%= have_users.user_id %>"> <%= gravatar_for @huser, size: 30 %></a>
+          <% end %>
         </div>
       </div>
       <div class="side-box">
         <h4 class="side-box-title">Wantしたユーザー</h4>
         <div class="side-box-body">
           <% # TODO Wantしたユーザー一覧 %>
+          <% @want_users= Want.where('type = ? and item_id = ?',"Want" , @item.id) %>
+          <% @want_users.each do |want_users| %>
+          <% @wuser = User.find(want_users.user_id) %> 
+          <a href="/users/<%= want_users.user_id %>"> <%= gravatar_for @wuser, size: 30 %></a>
+          <% end %>
         </div>
       </div>
       <div class="text-center">
         <% #TODO 正しいリンク先に %>
-        <%= link_to(image_tag("amazon-button.png", {alt: "Amazon詳細ページへ"}), '#') %>
+        <%= link_to(image_tag("amazon-button.png", {alt: "Amazon詳細ページへ"}), @item.detail_page_url) %>
       </div>
     </div>
   </div>

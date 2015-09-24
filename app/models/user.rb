@@ -64,4 +64,9 @@ class User < ActiveRecord::Base
   def want?(item)
     want_items.include?(item)
   end
+  
+#  def want_users
+#    @wants = Ownership.where(type:want, item_id:item.id)
+#  end
+  
 end

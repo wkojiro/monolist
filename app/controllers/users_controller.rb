@@ -16,6 +16,8 @@ class UsersController < ApplicationController
   
   def show
     @items = @user.items.group(:item_id)
+ #   @want_users= Want.where('type = ? and item_id = ?',"Want" , item_id)
+#　　@want_users= Want.where('type = ? and item_id = ?',"Want" , @item.id)
   end
 
   private
