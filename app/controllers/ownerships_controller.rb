@@ -10,7 +10,7 @@ Amazon::Ecs.options = {
 
   def create
     if params[:asin]
-      @item = Item.find_or_initialize_by(asin: params[:asin])
+      @item = Item.find_or_create_by(asin: params[:asin])
     else
       @item = Item.find(params[:item_id])
     end
@@ -25,6 +25,12 @@ Amazon::Ecs.options = {
       end
        
       amazon_item       = response.items.first  
+      
+      # response.items のままではArray型で配列の状態なので first 等で１つを取り出してあげればgetで情報を取得できると思います
+      # amazon_item get は amazon側のデータを取得するメソッドです
+      # その必要な情報をamazonから取得して さいごに itemを保存しています
+      #
+      
       @item.title        = amazon_item.get('ItemAttributes/Title')
       @item.small_image  = amazon_item.get("SmallImage/URL")
       @item.medium_image = amazon_item.get("MediumImage/URL")
