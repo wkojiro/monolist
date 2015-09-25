@@ -1,4 +1,8 @@
-listパーシャル
+<% content_for :head do %>
+<title>TOP:商品リストページ</title>
+<meta name="description" content="商品のリストページです。">
+<meta name="keywords" content="Monolist">
+<% end %>
 
 <div class="container">
   <div class="container-inner inner-default clearfix">
@@ -15,9 +19,9 @@ listパーシャル
         </div>
         <div class="detail">
           <p class="title">
-          タイトル：<%= item.title %>
+          <%= item.title %>
           </p>
-        </div>ここにで読み込んでる。render 'items/action'
+        </div>
         <%= render 'items/action' , item: item if logged_in? %>
       </div>
     <% end %>

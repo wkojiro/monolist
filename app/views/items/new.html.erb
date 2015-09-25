@@ -1,3 +1,9 @@
+<% content_for :head do %>
+<title><%= params[:q] %>の検索ページです</title>
+<meta name="description" content="<%= params[:q] %>の検索ページです">
+<meta name="keywords" content="Monolist,<%= params[:q] %>">
+<% end %>
+
 <div class="search">
   <%= form_tag new_item_path , method: :get do %>
     <%= text_field_tag :q , params[:q], placeholder: "キーワードを入力", required: true %>
